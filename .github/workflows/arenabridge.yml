@@ -33,6 +33,9 @@ jobs:
         run: pyinstaller --onefile --name find-cookie arenabridge/find_arena_cookie.py
 
       - name: Pack (cp866 bats + BOM txt + exe)
+        env:
+          PYTHONUTF8: '1'
+          PYTHONIOENCODING: 'utf-8'
         run: python arenabridge/.ci_pack.py
 
       - name: Zip + publish release
