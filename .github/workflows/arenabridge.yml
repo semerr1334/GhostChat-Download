@@ -24,6 +24,9 @@ jobs:
         run: pip install pyinstaller
 
       - name: Self-test cookie tool (AES-GCM)
+        env:
+          PYTHONUTF8: '1'
+          PYTHONIOENCODING: 'utf-8'
         run: python arenabridge/find_arena_cookie.py --selftest
 
       - name: Build find-cookie.exe
