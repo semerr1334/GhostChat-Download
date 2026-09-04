@@ -1,0 +1,43 @@
+name: ArenaBridge pack
+
+permissions:
+  contents: write
+
+on:
+  push:
+    paths:
+      - 'arenabridge/**'
+      - '.github/workflows/arenabridge.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Deps
+        run: pip install pyinstaller
+
+      - name: Self-test cookie tool (AES-GCM)
+        run: python arenabridge/find_arena_cookie.py --selftest
+
+      - name: Build find-cookie.exe
+        run: pyinstaller --onefile --name find-cookie arenabridge/find_arena_cookie.py
+
+      - name: Pack (cp866 bats + BOM txt + exe)
+        run: python arenabridge/.ci_pack.py
+
+      - name: Zip + publish release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          Compress-Archive -Path pkg/ArenaBridge/* -DestinationPath ArenaBridge-v2.zip -Force
+          gh release create "arena-bridge-v2" "ArenaBridge-v2.zip" `
+            --title "Мост к Арене 🌉 v2 — все ИИ Arena на твоём ПК по 6 кнопкам" `
+            --generate-notes || gh release upload "arena-bridge-v2" "ArenaBridge-v2.zip" --clobber
