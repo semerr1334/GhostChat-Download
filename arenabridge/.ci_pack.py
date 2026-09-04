@@ -10,10 +10,19 @@ DST = os.path.join('pkg', 'ArenaBridge')
 
 os.makedirs(DST, exist_ok=True)
 
+
+def sane(t):
+    # cp866 старая: без тире-строколомов и эмодзи — аккуратно заменяем
+    t = (t.replace('—', '-').replace('–', '-').replace('…', '...')
+         .replace('→', '->').replace('🌉', '').replace('👻', '<G>')
+         .replace('🎉', ':)').replace('🔥', '!!').replace('🎰', ''))
+    return t.encode('cp866', errors='replace').decode('cp866')
+
+
 for name in ('1-install-omniroute.bat', '2-find-cookie.bat', '3-install-agent.bat',
              '4-run-agent.bat', '5-test.bat'):
     with io.open(os.path.join(HERE, name), encoding='utf-8') as f:
-        text = f.read()
+        text = sane(f.read())
     with io.open(os.path.join(DST, name), 'w', encoding='cp866', newline='\r\n') as f:
         f.write(text)
     print('bat ->cp866:', name)
