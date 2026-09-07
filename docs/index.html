@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GhostLauncher">
+<meta name="theme-color" content="#17102b">
+<title>Ghost Launcher — все версии GhostCraft 3D</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%F0%9F%91%BB%3C/text%3E%3C/svg%3E">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { background:#17102b; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:#17102b; color:#eeeaff;
+    max-width:640px; margin:0 auto; padding:20px 14px 60px;
+    -webkit-text-size-adjust:100%;
+  }
+  .head { text-align:center; padding:26px 0 8px; }
+  .head .ghost { font-size:64px; display:block; animation:bob 2.6s ease-in-out infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  h1 { font-size:30px; letter-spacing:1px; margin:6px 0 2px; }
+  .sub { color:#9d8fd0; font-size:15px; }
+  .badge-live { display:none; background:#123f2b; color:#5df0a5; font-size:12px; border-radius:20px;
+    padding:4px 12px; margin:10px auto 0; width:fit-content; }
+  .card {
+    background:#252046; border:1px solid #39325e; border-radius:16px;
+    padding:16px; margin:14px 0;
+  }
+  .warn { border-color:#7a5c1e; background:#2e2513; color:#ffd98a; font-size:14px; line-height:1.5; }
+  .warn b { color:#ffe9b8; }
+  .feat h2, .card h2 { font-size:19px; margin-bottom:4px; }
+  .feat { border-color:#5a3fd6; background:linear-gradient(160deg,#2c2260,#241d48); }
+  .tagline { color:#9d8fd0; font-size:13px; margin-bottom:10px; }
+  a.dl {
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    background:linear-gradient(135deg,#7c5cff,#5a3fd6); color:#fff; text-decoration:none;
+    font-size:17px; font-weight:700; border-radius:12px; padding:15px 18px; margin:8px 0;
+    box-shadow:0 4px 14px rgba(90,63,214,.35); min-height:52px;
+  }
+  a.dl:active { transform:scale(.98); }
+  a.dl .sz { font-size:13px; font-weight:400; opacity:.85; white-space:nowrap; }
+  .relname { font-size:17px; font-weight:700; }
+  .relmeta { color:#9d8fd0; font-size:12.5px; margin:2px 0 8px; }
+  .hot { display:inline-block; background:#d6455f; color:#fff; font-size:11px; font-weight:700;
+    border-radius:8px; padding:2px 8px; margin-left:8px; vertical-align:middle; letter-spacing:.5px; }
+  .body-note { color:#cdbff5; font-size:13.5px; line-height:1.55; margin:6px 0 4px; }
+  details.card summary { font-size:16px; font-weight:700; cursor:pointer; }
+  ol.howto { margin:10px 0 0 20px; font-size:14.5px; line-height:1.65; }
+  ol.howto li { margin-bottom:6px; }
+  .fine { color:#8d82bb; font-size:12.5px; text-align:center; margin-top:22px; line-height:1.6; }
+  a { color:#b79bff; }
+  .err { color:#ff9db1; font-size:13px; text-align:center; margin:8px 0; display:none; }
+  hr.sep { border:none; border-top:1px dashed #39325e; margin:18px 0; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <span class="ghost">👻</span>
+  <h1>GHOST LAUNCHER</h1>
+  <div class="sub">все версии <b>GhostCraft&nbsp;3D</b> — качай прямо с телефона</div>
+  <div class="badge-live" id="live">🟢 список живой — прямо с GitHub</div>
+</div>
+
+<div class="card warn">
+  ⚠️ <b>Игра запускается на ПК с Windows!</b> На айфоне EXE не откроется —
+  ты его скачиваешь сюда, чтобы перекинуть на компьютер (инструкция ниже 👇).
+  Это обычная загрузка файла в Safari, ничего не сломается.
+</div>
+
+<div class="card feat">
+  <h2>🚀 GhostLauncher v1.0</h2>
+  <div class="tagline">Лаунчер-как-у-Майнкрафта: качай один раз, потом версии ставятся изнутри (кнопки INSTALL / PLAY)</div>
+  <a class="dl" href="https://github.com/semerr1334/GhostChat-Download/releases/download/ghostlauncher-v1.0/GhostLauncher-v1.0.exe">
+    <span>⬇️ Скачать лаунчер</span><span class="sz">542 КБ</span>
+  </a>
+  <div class="body-note">Работает только на ПК: на компе просто запусти файл — он сам покажет все версии игры, сам качает обновления.</div>
+</div>
+
+<hr class="sep">
+<h2 style="padding:0 2px;">⛏️ Версии GhostCraft 3D (свой движок)</h2>
+<div class="err" id="err">⚠️ живой список не открылся (лимит GitHub) — показываю зашитую копию</div>
+<div id="list"></div>
+
+<hr class="sep">
+<details class="card" open>
+  <summary>📲 Как перекинуть файл с айфона на компьютер</summary>
+  <ol class="howto">
+    <li>Жми <b>СКАЧАТЬ</b> → Safari спросит «Загрузить?» → жми <b>Загрузить</b>.</li>
+    <li>Файл лежит в приложении <b>Файлы</b> → папка <b>Загрузки</b>.</li>
+    <li>Перекинуть на ПК — любой способ:
+      <br>• <b>Telegram</b>: отправь файл себе в «Избранное» → открой Telegram на компе (ГОТОВО!);
+      <br>• <b>iCloud Drive</b>: «Поделиться» → Сохранить в Файлы → iCloud Drive → на компе icloud.com;
+      <br>• <b>Гугл Диск</b> — загрузи, на компе disk.google.com;
+      <br>• <b>Кабелем</b>: подключи к ПК, «Доверять этому компьютеру» → Фото/Файлы через проводник.</li>
+    <li>На ПК: запусти EXE двойным кликом. Если SmartScreen напишет «неизвестный издатель» —
+      жми <b>Подробнее → Выполнить в любом случае</b> (наш файл, вирусов нет, проверено побайтово ✔).</li>
+  </ol>
+</details>
+
+<details class="card">
+  <summary>➕ Сделай иконку на экране «Домой»</summary>
+  <ol class="howto">
+    <li>Ты уже на этой странице в Safari.</li>
+    <li>Жми <b>Поделиться</b> (квадрат со стрелкой вверх).</li>
+    <li>Листай вниз → <b>«На экран "Домой"»</b> → Добавить.</li>
+    <li>Теперь Ghost Launcher — как приложение: тап и сразу список версий 👻</li>
+  </ol>
+</details>
+
+<div class="fine">
+  сделано в Ghost Lab 👻 · ничего чужого: и текстуры, и эта страница — свои<br>
+  репозиторий: <a href="https://github.com/semerr1334/GhostChat-Download">github.com/semerr1334/GhostChat-Download</a>
+</div>
+
+<noscript>
+  <div class="card">
+    <div class="relname">GhostCraft 3D — последняя версия</div>
+    <div class="relmeta">включи JavaScript для живого списка, а пока — прямые ссылки:</div>
+    <a class="dl" href="https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.7.0/GhostCraft3D-v0.7.0.exe"><span>⬇️ Скачать v0.7.0 «КУЗНИЦА»</span><span class="sz">1.52 МБ</span></a><a class="dl" href="https://github.com/semerr1334/GhostChat-Download/releases/download/ghostlauncher-v1.0/GhostLauncher-v1.0.exe"><span>⬇️ GhostLauncher v1.0</span><span class="sz">530 КБ</span></a>
+  </div>
+</noscript>
+
+<script>
+// зашитая копия списка на случай лимита API / оффлайна
+var FALLBACK = [{"tag_name":"gc3d-own-v0.7.0","name":"GhostCraft 3D v0.7.0 KUZNITSA - СВОЙ движок (GhostEngine)","published_at":"2026-09-07T07:31:57Z","assets":[{"name":"GhostCraft3D-v0.7.0.exe","size":1593344,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.7.0/GhostCraft3D-v0.7.0.exe"}]},{"tag_name":"gc3d-own-v0.6.2","name":"GhostCraft 3D v0.6.2 VERSTAK - СВОЙ движок (GhostEngine)","published_at":"2026-09-06T17:02:42Z","assets":[{"name":"GhostCraft3D-v0.6.2.exe","size":1571840,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.6.2/GhostCraft3D-v0.6.2.exe"}]},{"tag_name":"gc3d-own-v0.6.1","name":"GhostCraft 3D v0.6.1 OCHAG - СВОЙ движок (GhostEngine)","published_at":"2026-09-06T15:59:19Z","assets":[{"name":"GhostCraft3D-v0.6.1.exe","size":1285632,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.6.1/GhostCraft3D-v0.6.1.exe"}]},{"tag_name":"gc3d-own-v0.6.0","name":"GhostCraft 3D v0.6.0 «СЕТЬ» — СВОЙ движок (GhostEngine)","published_at":"2026-09-06T15:03:05Z","assets":[{"name":"GhostCraft3D-v0.6.0.exe","size":1275904,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.6.0/GhostCraft3D-v0.6.0.exe"}]},{"tag_name":"gc3d-own-v0.5.3","name":"GhostCraft 3D v0.5.3 «КРОНА» — гравитация 1:1 из Майнкрафта + плотные кроны!","published_at":"2026-09-06T13:47:52Z","assets":[{"name":"GhostCraft3D-v0.5.3.exe","size":628736,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.5.3/GhostCraft3D-v0.5.3.exe"}]},{"tag_name":"gc3d-own-v0.5.2","name":"GhostCraft 3D v0.5.2 «ПЕРО» — мягкая гравитация, ПКМ по стакам, полные деревья!","published_at":"2026-09-06T13:16:01Z","assets":[{"name":"GhostCraft3D-v0.5.2.exe","size":628736,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.5.2/GhostCraft3D-v0.5.2.exe"}]},{"tag_name":"gc3d-own-v0.5.1","name":"GhostCraft 3D v0.5.1 «POLISH» — кактусы колются, доски складываются!","published_at":"2026-09-06T12:19:23Z","assets":[{"name":"GhostCraft3D-v0.5.1.exe","size":623104,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.5.1/GhostCraft3D-v0.5.1.exe"}]},{"tag_name":"gc3d-own-v0.5.0","name":"GhostCraft 3D v0.5.0 «МИРЫ» — свой движок GhostEngine","published_at":"2026-09-06T11:56:20Z","assets":[{"name":"GhostCraft3D-v0.5.0.exe","size":622080,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.5.0/GhostCraft3D-v0.5.0.exe"}]},{"tag_name":"gc3d-own-v0.4.0","name":"GhostCraft 3D v0.4.0 MENU (СВОЙ движок GhostEngine)","published_at":"2026-09-06T10:09:03Z","assets":[{"name":"GhostCraft3D-v0.4.0.exe","size":585216,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.4.0/GhostCraft3D-v0.4.0.exe"}]},{"tag_name":"gc3d-own-v0.3.2","name":"GhostCraft 3D v0.3.2 SIDES — все стены на месте, просветов 0 👻","published_at":"2026-09-06T09:14:34Z","assets":[{"name":"GhostCraft3D-v0.3.2.exe","size":567296,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.3.2/GhostCraft3D-v0.3.2.exe"}]},{"tag_name":"gc3d-own-v0.3.1","name":"GhostCraft 3D v0.3.1 SOLID BLOCKS — конец просветов! 👻","published_at":"2026-09-06T08:52:10Z","assets":[{"name":"GhostCraft3D-v0.3.1.exe","size":567296,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.3.1/GhostCraft3D-v0.3.1.exe"}]},{"tag_name":"gc3d-own-v0.3","name":"GhostCraft 3D v0.3 ЗЕМЛЯ — сухая суша + озёра как в Minecraft 👻","published_at":"2026-09-05T19:10:00Z","assets":[{"name":"GhostCraft3D-v0.3.exe","size":566784,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.3/GhostCraft3D-v0.3.exe"}]},{"tag_name":"gc3d-own-v0.2.1","name":"GhostCraft 3D v0.2.1 WATER FIX — СВОЙ движок GhostEngine 👻","published_at":"2026-09-05T18:58:33Z","assets":[{"name":"GhostCraft3D-v0.2.1.exe","size":566272,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.2.1/GhostCraft3D-v0.2.1.exe"}]},{"tag_name":"gc3d-own-v0.2","name":"GhostCraft 3D v0.2 BLOCKS - СВОЙ движок","published_at":"2026-09-05T18:14:42Z","assets":[{"name":"GhostCraft3D-v0.2.exe","size":565760,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.2/GhostCraft3D-v0.2.exe"}]},{"tag_name":"gc3d-own-v0.1.2","name":"GhostCraft 3D v0.1.2 - СВОЙ движок (мышь ЧЕСТНО исправлена)","published_at":"2026-09-05T17:50:32Z","assets":[{"name":"GhostCraft3D-v0.1.2.exe","size":547328,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.1.2/GhostCraft3D-v0.1.2.exe"}]},{"tag_name":"gc3d-own-v0.1.1","name":"GhostCraft 3D v0.1.1 - СВОЙ движок (мышь исправлена!)","published_at":"2026-09-05T17:34:49Z","assets":[{"name":"GhostCraft3D-v0.1.1.exe","size":546816,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.1.1/GhostCraft3D-v0.1.1.exe"}]},{"tag_name":"gc3d-own-v0.1","name":"GhostCraft 3D v0.1 - СВОЙ движок (GhostEngine)","published_at":"2026-09-05T17:25:52Z","assets":[{"name":"GhostCraft3D-v0.1.exe","size":546816,"browser_download_url":"https://github.com/semerr1334/GhostChat-Download/releases/download/gc3d-own-v0.1/GhostCraft3D-v0.1.exe"}]}];
+
+function mb(sz) {
+  if (sz >= 1048576) return (sz/1048576).toFixed(2) + ' МБ';
+  if (sz >= 1024) return Math.round(sz/1024) + ' КБ';
+  return sz + ' Б';
+}
+function ruDate(iso) {
+  try { return new Date(iso).toLocaleDateString('ru-RU', {day:'numeric', month:'long', year:'numeric'}); }
+  catch(e) { return iso.slice(0,10); }
+}
+function codename(name) {
+  var m = /v(\d+\.\d+\.\d+)/.exec(name||'');
+  return m ? 'v' + m[1] : '';
+}
+function render(data, live) {
+  var host = document.getElementById('list');
+  host.innerHTML = '';
+  if (live) document.getElementById('live').style.display = 'block';
+  var seen = 0;
+  for (var i = 0; i < data.length && seen < 24; i++) {
+    var rel = data[i];
+    var tag = rel.tag_name || '';
+    if (tag.indexOf('gc3d-own-') !== 0) continue;   // только своя игра, свой движок
+    seen++;
+    var card = document.createElement('div');
+    card.className = 'card';
+    var hot = seen === 1 ? '<span class="hot">🔥 СВЕЖАЯ</span>' : '';
+    var exes = (rel.assets||[]).filter(function(a){ return /\.exe$/i.test(a.name); });
+    if (!exes.length) continue;
+    var html = '<div class="relname">' + (rel.name||tag) + hot + '</div>' +
+               '<div class="relmeta">' + ruDate(rel.published_at||'') + ' · ' + tag + '</div>';
+    exes.forEach(function(a) {
+      html += '<a class="dl" href="' + a.browser_download_url + '">' +
+              '<span>⬇️ Скачать ' + codename(rel.name) + '</span><span class="sz">' + mb(a.size) + '</span></a>';
+    });
+    if (rel.body) {
+      var ln = rel.body.split('\n').filter(function(l){ return l.trim().length > 2; }).slice(0,2).join('<br>');
+      html += '<div class="body-note">' + ln + '</div>';
+    }
+    card.innerHTML = html;
+    host.appendChild(card);
+  }
+  if (!seen) {
+    host.innerHTML = '<div class="card">версии не нашлись… странно! зайди позже 🕵️</div>';
+  }
+}
+fetch('https://api.github.com/repos/semerr1334/GhostChat-Download/releases?per_page=40', {cache:'no-store'})
+  .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+  .then(function(j){ render(j, true); })
+  .catch(function(e){ document.getElementById('err').style.display = 'block'; render(FALLBACK, false); });
+</script>
+
+</body>
+</html>
